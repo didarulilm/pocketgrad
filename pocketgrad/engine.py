@@ -1,7 +1,8 @@
 class Scalar:
-    """Represents a scalar value and its gradients."""
+    """Represents a scalar node and its gradient in the computation graph."""
 
     def __init__(self, data, label="", _ancestors=(), _op=""):
+        assert isinstance(data, (int, float)), "node data must be an int or float"
         self.data = data
         self.label = label
         self._prev = set(_ancestors)   # ancestor nodes in the computation graph
@@ -35,7 +36,7 @@ class Scalar:
 
     # Called by: self ** other
     def __pow__(self, other):
-        assert isinstance(other, (int, float)), "power must be int or float"
+        assert isinstance(other, (int, float)), "power must be an int or float"
 
         output = Scalar(self.data**other, _ancestors=(self,), _op=f"**{other}")
 
