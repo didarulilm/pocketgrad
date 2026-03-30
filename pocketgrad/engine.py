@@ -1,3 +1,6 @@
+import math
+
+
 class Scalar:
     """Represents a scalar node and its gradient in the computation graph."""
 
@@ -56,6 +59,29 @@ class Scalar:
         output._backward = _backward
         return output
 
+    # Called by: self.sigmoid()
+    def sigmoid(self):
+        s = 1.0 / (1.0 + math.exp(-self.data))
+        output = Scalar(s, _ancestors=(self,), _op="sigmoid")
+
+        def _backward():
+            self.grad += (s * (1.0 - s)) * output.grad
+
+        output._backward = _backward
+        return output
+
+    # Called by: self.tanh()
+    def tanh(self):
+        n = self.data
+        t = (math.exp(2 * n) - 1) / (math.exp(2 * n) + 1)
+        output = Scalar(t, _ancestors=(self,), _op="tanh")
+
+        def _backward():
+            self.grad += (1 - t**2) * output.grad
+
+        output._backward = _backward
+        return output
+
     def backward(self):
         """
         Traverse the directed acyclic graph (DAG) in reverse topological order
@@ -64,7 +90,7 @@ class Scalar:
         topo = []
         visited = set()
 
-        # Recursive dfs
+        # Recursive DFS 
         def build_topo(node):
             if node not in visited:
                 visited.add(node)
