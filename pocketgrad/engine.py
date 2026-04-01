@@ -6,16 +6,16 @@ class Scalar:
 
     def __init__(self, data, label="", _ancestors=(), _op=""):
         assert isinstance(data, (int, float)), "node data must be an int or float"
-        self.data = data
-        self.label = label
+        self.data = data               # scalar value stored in this node
+        self.label = str(label)        # optional: used for debugging/visualization
         self._prev = set(_ancestors)   # ancestor nodes in the computation graph
         self._op = _op                 # operation that created this node
-        self.grad = 0.0                # stores gradient value
+        self.grad = 0.0                # stored gradient value
         self._backward = lambda: None  # for leaf nodes
-
+        
     # Called by: self + other
     def __add__(self, other):
-        other = other if isinstance(other, Scalar) else Scalar(data=other, label=str(other))
+        other = other if isinstance(other, Scalar) else Scalar(data=other, label=other)
         output = Scalar(data=self.data + other.data, _ancestors=(self, other), _op="+")
 
         def _backward():
@@ -27,7 +27,7 @@ class Scalar:
 
     # Called by: self * other
     def __mul__(self, other):
-        other = other if isinstance(other, Scalar) else Scalar(data=other, label=str(other))
+        other = other if isinstance(other, Scalar) else Scalar(data=other, label=other)
         output = Scalar(data=self.data * other.data, _ancestors=(self, other), _op="*")
 
         def _backward():
@@ -41,7 +41,7 @@ class Scalar:
     def __pow__(self, other):
         assert isinstance(other, (int, float)), "power must be an int or float"
 
-        output = Scalar(self.data**other, _ancestors=(self,), _op=f"**{other}")
+        output = Scalar(self.data**other, _ancestors=(self,), _op=f"^{other}")
 
         def _backward():
             self.grad += (other * self.data ** (other - 1)) * output.grad
@@ -90,7 +90,7 @@ class Scalar:
         topo = []
         visited = set()
 
-        # Recursive DFS 
+        # Recursively build the topological order 
         def build_topo(node):
             if node not in visited:
                 visited.add(node)
@@ -104,7 +104,7 @@ class Scalar:
         # Manually inserting ∂output/∂output = 1
         self.grad = 1.0
 
-        # Traverse in reverse topological order and do backpropagation
+        # Traverse in reverse order and do backpropagation
         for node in reversed(topo):
             node._backward()
 
