@@ -66,9 +66,14 @@ class Layer(Module):
 class MLP(Module):
     """
     Multi-layer perceptron composed of fully connected layers.
+    
+    Example:
+    
+    model = MLP(2, [16, 16, 1])
 
-    nin = number of inputs to MLP.
-    nouts = list where each element is the number of neurons in that layer.
+    - 2 input features
+    - 2 hidden layers of 16 neurons each
+    - 1 output neuron
     """
 
     def __init__(self, nin, nouts):
