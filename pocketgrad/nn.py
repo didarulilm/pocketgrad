@@ -20,7 +20,7 @@ class Neuron(Module):
 
     def __init__(self, nin, non_linear=True):
         self.weights = [Scalar(random.uniform(-1, 1)) for _ in range(nin)]
-        self.bias = Scalar(random.uniform(-1, 1))
+        self.bias = Scalar(0)
         self.non_linear = non_linear
 
     def __call__(self, x):
