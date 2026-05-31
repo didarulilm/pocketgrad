@@ -1,18 +1,35 @@
 [project]
 name = "pocketgrad"
 version = "0.1.0"
+description = "A lightweight autograd engine and neural network library"
+authors = [
+    { name = "Didarul Islam", email = "didarulislam85@hotmail.com" },
+]
 readme = "README.md"
+license = { file = "LICENSE" }
 requires-python = ">=3.12"
 dependencies = [
     "graphviz>=0.21",
-    "matplotlib>=3.10.8",
-    "numpy>=2.4.4",
-    "scikit-learn>=1.8.0",
-    "torch>=2.11.0",
 ]
+classifiers = [
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Repository = "https://github.com/didarulilm/pocketgrad"
 
 [dependency-groups]
 dev = [
     "ipykernel>=7.2.0",
     "pytest>=9.0.2",
+    "numpy>=2.4.0",
+    "matplotlib>=3.10.8",
+    "scikit-learn>=1.8.0",
+    "torch>=2.11.0",
 ]
+
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
