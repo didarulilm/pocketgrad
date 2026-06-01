@@ -1,6 +1,6 @@
 [project]
 name = "pocketgrad"
-version = "0.1.0"
+version = "0.1.1"
 description = "A lightweight autograd engine and neural network library"
 authors = [
     { name = "Didarul Islam", email = "didarulislam85@hotmail.com" },
