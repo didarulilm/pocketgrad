@@ -70,9 +70,9 @@ pocketgrad/
 
 ## Key Design Decisions
 
-- **Faithful to the educational goal:** `pocketgrad` stays scalar-valued by design. This keeps the computation graph easier to reason about and makes the chain rule visible at every step.
-- **Batteries included for learning:** Features a small neural network library built on top of the core engine, along with graph visualization utilities for inspecting gradient flow.
-- **Clarity over complexity:** It preserves the transparency that makes [micrograd](https://github.com/karpathy/micrograd) valuable for learning, without introducing extra complexity that does not bring PyTorch-level performance.
+- **Faithful to the educational goal:** `pocketgrad` stays scalar-valued by design. This keeps the core mechanics of autodiff concrete and easier to reason about.
+- **Batteries included for learning:** It includes a small neural network library `nn.py` built on top of the core engine, along with a graph visualization module `visualize.py`, so readers can follow each operation, inspect the computation graph, and see how gradients flow step by step.
+- **Readability over performance:** It avoids abstractions that reduce educational value without offering production-grade performance like modern deep learning frameworks.
 
 ## Not in Scope
 
