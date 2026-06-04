@@ -2,7 +2,7 @@
 
 <a href="https://github.com/didarulilm/pocketgrad/actions/workflows/ci.yml"><img src="https://github.com/didarulilm/pocketgrad/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
 
-A minimal, pedagogical implementation of an autograd engine and neural network library in pure Python. Built to understand from first principles how frameworks like PyTorch implement reverse-mode automatic differentiation (aka autograd / backpropagation) under the hood. 
+A minimal, pedagogical implementation of an autograd engine and neural network library in pure Python. Built to understand from first principles how frameworks like PyTorch implement reverse-mode automatic differentiation (backpropagation) under the hood. 
 
 Thanks to Andrej Karpathy for [micrograd](https://github.com/karpathy/micrograd), which served as the primary reference for this project.
 
@@ -13,7 +13,7 @@ pip install pocketgrad
 ```
 
 ## Example with Computational Graph
-In `pocketgrad`, each operation dynamically adds a node to the computation graph, forming a [DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph). Calling `.backward()` traverses this graph in reverse topological order, accumulating gradients at each node via the chain rule.
+Each operation dynamically adds a node to the computation graph, forming a [DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph). Calling `.backward()` traverses this graph in reverse topological order, accumulating gradients at each node via the [chain rule](https://en.wikipedia.org/wiki/Chain_rule).
 
 The example below demonstrates this by building a simple graph, running backpropagation, and visualizing the result:
 
@@ -59,30 +59,23 @@ pocketgrad/
 │   └── visualize.py            # Graph rendering utilities
 ├── test/
 │   └── test_engine.py          # Unit tests
-├── .gitignore                  
-├── .python-version             
-├── LICENSE                     
-├── README.md                   
 ├── demo_graph.ipynb            # Graph demo notebook
 ├── demo_mlp.ipynb              # MLP demo notebook
 └── pyproject.toml              # Build configuration
 ```
 
-## Key Design Decisions
+## Design Decisions
 
-- **Faithful to the educational goal:** `pocketgrad` stays scalar-valued by design. This keeps the core mechanics of autodiff concrete and easier to reason about.
-- **Batteries included for learning:** It includes a small neural network library `nn.py` built on top of the core engine, along with a graph visualization module `visualize.py`, so readers can follow each operation, inspect the computation graph, and see how gradients flow step by step.
-- **Readability over performance:** It avoids abstractions that reduce educational value without offering production-grade performance like modern deep learning frameworks.
+- **Scalar-valued by design:** Every node holds a single number, not a tensor. This keeps the core mechanics of backpropagation transparent and easier to reason about.
+- **Batteries included for learning:** `pocketgrad` includes a small neural network library `nn.py` built on top of the core engine, along with a graph visualization module `visualize.py`, so readers can follow each operation, inspect the computation graph, and see how gradients flow step by step.
+- **Readability over performance:** It avoids abstraction that reduces educational value without offering the benefits of a production-grade framework.
 
-## Not in Scope
+## Out of Scope
+As a pedagogical tool, `pocketgrad` does not cover:
 
-As a pedagogical tool, the following are not planned:
-
-- Vectorization.
-
-- PyTorch-level abstractions for tensors.
-
-- GPU acceleration, CUDA support, or low-level kernel optimizations.
+- Vectorization or tensor abstractions
+- GPU acceleration, CUDA, or low-level kernel optimizations
+- PyTorch-level API breadth
 
 
 ## Tests
