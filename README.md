@@ -66,9 +66,9 @@ pocketgrad/
 
 ## Design Decisions
 
-- **Scalar-valued by design:** Every node holds a single number, not a tensor. This keeps the core mechanics of backpropagation transparent and easier to reason about.
-- **Batteries included for learning:** `pocketgrad` includes a small neural network library `nn.py` built on top of the core engine, along with a graph visualization module `visualize.py`, so readers can follow each operation, inspect the computation graph, and see how gradients flow step by step.
-- **Readability over performance:** It avoids abstraction that reduces educational value without offering the benefits of a production-grade framework.
+- **Scalar-valued by design:** Each node in the computation graph is represented as a `Scalar` rather than a tensor. This makes the [chain rule](https://en.wikipedia.org/wiki/Chain_rule) traceable at every step, with each gradient reduced to a single number you can verify by hand.
+- **Batteries included for learning:** Features a small neural-network library `nn.py` for building and training models on top of the core engine, and `visualize.py` for rendering computation graphs and tracing gradients step by step.
+- **Readability over performance:** `pocketgrad` avoids abstraction that reduces its educational value without offering the benefits of a production-grade framework.
 
 ## Out of Scope
 As a pedagogical tool, `pocketgrad` does not cover:
