@@ -2,7 +2,7 @@
 
 <a href="https://github.com/didarulilm/pocketgrad/actions/workflows/ci.yml"><img src="https://github.com/didarulilm/pocketgrad/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
 
-A minimal, pedagogical implementation of an autograd engine and neural network library in pure Python. Built to understand from first principles how frameworks like PyTorch implement reverse-mode automatic differentiation (backpropagation) under the hood. 
+A minimal, pedagogical implementation of an autograd engine and neural network library written in Python. Built to understand from first principles how frameworks like PyTorch implement reverse-mode automatic differentiation (backpropagation) under the hood. 
 
 Thanks to Andrej Karpathy for [micrograd](https://github.com/karpathy/micrograd), which served as the primary reference for this project.
 
